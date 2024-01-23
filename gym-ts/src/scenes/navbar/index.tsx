@@ -1,10 +1,13 @@
+import React from "react";
 import { useState } from "react";
 import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/solid";
 import Logo from "@/assets/Logo.png";
-import Link from "./Link";
+import LinkSmooth from "./LinkSmooth";
 import { SelectedPage } from "@/shared/types";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import ActionButton from "@/shared/ActionButton";
+import {BrowserRouter, Routes, Route, NavLink,}  from "react-router-dom";
+import SignUpForm from "@/scenes/signup/index";
 
 type Props = {
     isTopOfPage: boolean;
@@ -32,30 +35,41 @@ const Navbar = ({isTopOfPage, selectedPage, setSelectedPage}: Props) => {
                         <div className={`${flexbetween} w-full`}>
                             {/* INNER LEFT SIDE (HOME, BENEFITS,...) */}
                             <div className={`${flexbetween} gap-8 text-sm`}>
-                                <Link
+                                <LinkSmooth
                                     page="Home"
                                     selectedPage={selectedPage}
                                     setSelectedPage={setSelectedPage}
                                 />
-                                <Link
+                                <LinkSmooth
                                     page="Benefits"
                                     selectedPage={selectedPage}
                                     setSelectedPage={setSelectedPage}
                                 />
-                                <Link
+                                <LinkSmooth
                                     page="Our Classes"
                                     selectedPage={selectedPage}
                                     setSelectedPage={setSelectedPage}
                                 />
-                                <Link
+                                <LinkSmooth
                                     page="Contact Us"
                                     selectedPage={selectedPage}
                                     setSelectedPage={setSelectedPage}
                                 />
+                                
+
                             </div>
                             {/* INNER RIGHT SIDE (SIGN IN, BECOME MEMBER) */}
                             <div className={`${flexbetween} gap-8`}>
-                                <p>Sign In</p>
+                            <NavLink
+                                to="/signup"
+                                style={({ isActive }) => ({
+                                    color: isActive
+                                        ? "greenyellow"
+                                        : "blue",
+                                })}
+                            >
+                                Sign Up
+                            </NavLink>
                                 <ActionButton setSelectedPage={setSelectedPage}>Become a Member</ActionButton>
                             </div>
                         </div>
@@ -84,29 +98,37 @@ const Navbar = ({isTopOfPage, selectedPage, setSelectedPage}: Props) => {
 
                 {/* MENU ITEMS */}
                 <div className=" ml-[33%] flex flex-col gap-10 text-2xl">
-                    <Link
+                    <LinkSmooth
                         page="Home"
                         selectedPage={selectedPage}
                         setSelectedPage={setSelectedPage}
                     />
-                    <Link
+                    <LinkSmooth
                         page="Benefits"
                         selectedPage={selectedPage}
                         setSelectedPage={setSelectedPage}
                     />
-                    <Link
+                    <LinkSmooth
                         page="Our Classes"
                         selectedPage={selectedPage}
                         setSelectedPage={setSelectedPage}
                     />
-                    <Link
+                    <LinkSmooth
                         page="Contact Us"
                         selectedPage={selectedPage}
                         setSelectedPage={setSelectedPage}
                     />
+
+
                 </div>
             </div>
         )}
+            <Routes>
+                <Route
+                    path="/signup"
+                    element={<SignUpForm />}
+                />
+            </Routes>
     </nav>
   )
 }
