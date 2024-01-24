@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/solid";
 import Logo from "@/assets/Logo.png";
@@ -6,8 +5,7 @@ import LinkSmooth from "./LinkSmooth";
 import { SelectedPage } from "@/shared/types";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import ActionButton from "@/shared/ActionButton";
-import {BrowserRouter, Routes, Route, NavLink,}  from "react-router-dom";
-import SignUpForm from "@/scenes/signup/index";
+import { Link } from 'react-router-dom';
 
 type Props = {
     isTopOfPage: boolean;
@@ -60,16 +58,7 @@ const Navbar = ({isTopOfPage, selectedPage, setSelectedPage}: Props) => {
                             </div>
                             {/* INNER RIGHT SIDE (SIGN IN, BECOME MEMBER) */}
                             <div className={`${flexbetween} gap-8`}>
-                            <NavLink
-                                to="/signup"
-                                style={({ isActive }) => ({
-                                    color: isActive
-                                        ? "greenyellow"
-                                        : "blue",
-                                })}
-                            >
-                                Sign Up
-                            </NavLink>
+                                <Link to="/signup">Sign Up</Link>
                                 <ActionButton setSelectedPage={setSelectedPage}>Become a Member</ActionButton>
                             </div>
                         </div>
@@ -123,12 +112,6 @@ const Navbar = ({isTopOfPage, selectedPage, setSelectedPage}: Props) => {
                 </div>
             </div>
         )}
-            <Routes>
-                <Route
-                    path="/signup"
-                    element={<SignUpForm />}
-                />
-            </Routes>
     </nav>
   )
 }

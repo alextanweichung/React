@@ -1,11 +1,10 @@
 import Navbar from "@/scenes/navbar";
-import Home from "@/scenes/home";
-import Benefits from "@/scenes/benefits";
-import OurClasses from "@/scenes/ourClasses";
-import ContactUs from "@/scenes/contactUs";
 import Footer from "@/scenes/footer";
+import Signup from '@/scenes/signup';
 import { useEffect, useState } from "react";
 import { SelectedPage } from "@/shared/types";
+import { Navigate, Route, Routes } from 'react-router-dom';
+import CombinedContent from '@/scenes/CombineContent';
 
 function App() {
   const [selectedPage, setSelectedPage] = useState<SelectedPage>(
@@ -29,25 +28,15 @@ function App() {
   }, []);
 
   return (
-    <div className='app bg-gray-20'>
-      <Navbar
-        isTopOfPage = {isTopOfPage}
-        selectedPage={selectedPage}
-        setSelectedPage={setSelectedPage}
-      />
-      <Home
-        setSelectedPage={setSelectedPage}
-      />
-      <Benefits
-        setSelectedPage={setSelectedPage}
-      />
-      <OurClasses
-        setSelectedPage={setSelectedPage}
-      />
-      <ContactUs
-        setSelectedPage={setSelectedPage}
-      />
-      <Footer/>
+    <div className="app bg-gray-20">
+      <Navbar isTopOfPage={isTopOfPage} selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
+      <Routes>
+        <Route path="/" element={<CombinedContent setSelectedPage={setSelectedPage}/>} />
+        <Route path="/signup" element={<Signup />} />
+        {/* Add other routes if needed */}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+      <Footer />
     </div>
   )
 }
